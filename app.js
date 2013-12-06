@@ -1,19 +1,44 @@
 
 function AppViewModel() {
-    var DROPBOX_APP_KEY = "p6jtk1qgu2cg5qs";
+    const DROPBOX_APP_KEY = "p6jtk1qgu2cg5qs";
     var client = new Dropbox.Client({key: DROPBOX_APP_KEY});
 
+    var ds = undefined;
+    var table = undefined;
+
+    viewModel = this;
+
+    this.loggedIn = ko.observable(null);
+    this.masterPassword = ko.observable();
+    this.site = ko.observable();
+
     this.doLogin = function() {
-	client.authenticate();
-    }
+	client.authenticate({}, function(err) {
+	    if (err) {
+		console.log(err);
+		viewModel.loggedIn(false);
+	    } else {
+		client.getDatastoreManager()
+		    .openDefaultDatastore(function(err, datastore) {
+			if (err) {
+			    console.log(err);
+			} else {
+			    ds = datastore;
+			    table = datastore.getTable("mypassbox");
+			    viewModel.loggedIn(true);
+			}
+		    });
+	    }
+	});
+    };
 
     this.shouldEnableLoginBox = ko.computed(function() {
-	return !client.isAuthenticated();
+	return !viewModel.loggedIn();
     }, this);
 
-    this.isLoggedIn = ko.computed(function() {
-	return client.isAuthenticated();
-    }, this);
+    this.addSite = function() {
+	table.insert({ site: viewModel.site()});
+    };
 };
 
 

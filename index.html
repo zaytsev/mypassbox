@@ -11,6 +11,9 @@
     <script src="app.js" type="text/javascript"></script>
     <link rel="stylesheet" href="pure-0.3.0.min.css">
     -->
+    <style>
+      .hidden {display:none};
+    </style>
   </head>
   <body>
     <div id="wrapper">
@@ -20,12 +23,14 @@
 	  <button type="submit" class="pure-button pure-button-primary">Login with Dropbox</button>
 	</form>
       </div>
-      <div id="main" class="pure-g-r" data-bind="visible: isLoggedIn">
+      <div id="main" class="pure-g-r" data-bind="visible: loggedIn" style="display:none;">
 	<div class="pure-u-1-2">
-	  <form class="pure-form">
+	  <form class="pure-form" data-bind="submit: addSite">
 	    <fieldset class="pure-group">
-	      <input type="password" class="pure-input-1-2" placeholder="Master Password" required>
-	      <input type="text" class="pure-input-1-2" placeholder="Site Name" required>
+	      <input type="password" class="pure-input-1-2"
+		     placeholder="Master Password" required data-bind="text: masterPassword">
+	      <input type="text" class="pure-input-1-2"
+		     placeholder="Site Name" required data-bind="text: site">
 	    </fieldset>
 	    <button type="submit" class="pure-button pure-input-1-2 pure-button-primary">Generate!</button>
 	  </form>
