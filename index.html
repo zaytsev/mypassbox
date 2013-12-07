@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8">
     <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.0.0/knockout-min.js" type="text/javascript"></script>
     <script src="https://www.dropbox.com/static/api/dropbox-datastores-1.0-latest.js" type="text/javascript"></script>
     <script src="app.js" type="text/javascript"></script>
@@ -28,9 +29,9 @@
 	  <form class="pure-form" data-bind="submit: addSite">
 	    <fieldset class="pure-group">
 	      <input type="password" class="pure-input-1-2"
-		     placeholder="Master Password" required data-bind="text: masterPassword">
+		     placeholder="Master Password" required data-bind="value: masterPassword">
 	      <input type="text" class="pure-input-1-2"
-		     placeholder="Site Name" required data-bind="text: site">
+		     placeholder="Site Name" required data-bind="value: site">
 	    </fieldset>
 	    <button type="submit" class="pure-button pure-input-1-2 pure-button-primary">Generate!</button>
 	  </form>
